@@ -11,7 +11,7 @@ public class Train : MonoBehaviour
     private bool isAccelerating = true;
 
     private float TrainLength = 0f;
-    private float TrainTopSpeed =20.0f;
+    private float TrainTopSpeed =1000.0f;
     private float AccelerationSpeed = 0.05f;
 
     private float CurrentSpeed = 0;
@@ -55,15 +55,15 @@ public class Train : MonoBehaviour
         else
             StationIndex = 0;
         isAccelerating = true;
-        Engine.transform.LookAt(Stations[StationIndex]);
         Vector3 engineOffset;
         if (StationIndex == 0)
-            engineOffset = new Vector3(-TrainLength, 0f, 0f);
+            engineOffset = new Vector3(-TrainLength, 0, +4.456f);
         else
-            engineOffset = new Vector3(TrainLength, 0f, 0f);
+            engineOffset = new Vector3(TrainLength, 0, -4.456f);
         //Debug.Log(Engine.transform.position);
         Engine.transform.position += engineOffset;
         //Debug.Log(Engine.transform.position);
+        Engine.transform.LookAt(Stations[StationIndex]);
     }
 
     void ManageSpeed()
