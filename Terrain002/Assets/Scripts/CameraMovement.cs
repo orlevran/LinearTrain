@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    float x, z, speed = 50f;
+    float x, z, speed = 150f;
     Vector3 move;
     public CharacterController controller;
 
