@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Train : MonoBehaviour
 {
+    public static Train instance;
+
     public GameObject Engine;
     public List<GameObject> Cars;
     public List<Transform> Stations;
@@ -22,6 +24,10 @@ public class Train : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         // calculates the train length to reposition the engine
         foreach (GameObject car in Cars)
         {
@@ -87,10 +93,14 @@ public class Train : MonoBehaviour
         {
             AtStation = true;
             CurrentSpeed = 0;
+
+            PassangerController.EnableOrDisableAgent(true);
+            Passanger.isWalking = true;
+            AnimationActivator.OutSideObjectActivator = true;
             StartCoroutine(WaitForPassengers());
             IEnumerator WaitForPassengers()
             {
-                yield return new WaitForSeconds(5);
+                yield return new WaitForSeconds(10);
                 NextStation();
                 status = 0;
                 AtStation = false;
