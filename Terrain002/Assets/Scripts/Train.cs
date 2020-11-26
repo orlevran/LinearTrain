@@ -114,9 +114,9 @@ public class Train : MonoBehaviour
             StationIndex = 0;
         Vector3 engineOffset;
         if (StationIndex == 0)
-            engineOffset = new Vector3(-TrainLength, 0, +4.456f);
+            engineOffset = new Vector3(-TrainLength, 0, +6.856f);
         else
-            engineOffset = new Vector3(TrainLength, 0, -4.456f);
+            engineOffset = new Vector3(TrainLength, 0, -6.856f);
         //Debug.Log(Engine.transform.position);
         Engine.transform.position += engineOffset;
         //Debug.Log(Engine.transform.position);
