@@ -8,7 +8,8 @@ public class Train : MonoBehaviour
 
     public GameObject Engine;
     public List<GameObject> Cars;
-    public List<Transform> Stations;
+    public List<Station> Stations;
+    public List<GameObject> Passengers;
 
     public bool AtStation = false;
     private float TrainLength = 0f;
@@ -32,6 +33,7 @@ public class Train : MonoBehaviour
         foreach (GameObject car in Cars)
         {
             TrainLength += car.GetComponent<Collider>().bounds.size.x; // remember to add a collider to new cars
+            car.GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 
@@ -71,7 +73,7 @@ public class Train : MonoBehaviour
     void Drive()
     {
         MoveTrain();
-        if (Vector3.Distance(transform.position, Stations[StationIndex].position) < DistanceSlowdown)
+        if (Vector3.Distance(transform.position, Stations[StationIndex].EndPoint.position) < DistanceSlowdown)
         {
             status = 2;
         }
@@ -82,7 +84,7 @@ public class Train : MonoBehaviour
         CurrentSpeed -= AccelerationSpeed * 1.5f;
         if (CurrentSpeed < TrainMinSpeed)
             CurrentSpeed = TrainMinSpeed;
-        if (Vector3.Distance(transform.position, Stations[StationIndex].position) < 0.001f)
+        if (Vector3.Distance(transform.position, Stations[StationIndex].EndPoint.position) < 0.001f)
         {
             status = 3;
         }
@@ -93,10 +95,10 @@ public class Train : MonoBehaviour
         {
             AtStation = true;
             CurrentSpeed = 0;
-
-            PassangerController.EnableOrDisableAgent(true);
-            Passanger.isWalking = true;
-            AnimationActivator.OutSideObjectActivator = true;
+            //Stations[StationIndex].TrainArrived();
+            //PassangerController.EnableOrDisableAgent(true);
+            //Passanger.isWalking = true;
+            //AnimationActivator.OutSideObjectActivator = true;
             StartCoroutine(WaitForPassengers());
             IEnumerator WaitForPassengers()
             {
@@ -111,7 +113,7 @@ public class Train : MonoBehaviour
     void MoveTrain()
     {
         float Step = CurrentSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, Stations[StationIndex].position, Step);
+        transform.position = Vector3.MoveTowards(transform.position, Stations[StationIndex].EndPoint.position, Step);
     }
 
     void NextStation()
@@ -130,7 +132,7 @@ public class Train : MonoBehaviour
         //Debug.Log(Engine.transform.position);
         Engine.transform.position += engineOffset;
         //Debug.Log(Engine.transform.position);
-        Engine.transform.LookAt(Stations[StationIndex]);
+        Engine.transform.LookAt(Stations[StationIndex].EndPoint);
     }
 
 }
