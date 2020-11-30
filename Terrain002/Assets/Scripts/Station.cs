@@ -4,32 +4,61 @@ using UnityEngine;
 
 public class Station : MonoBehaviour
 {
+    public GameObject passengerPrefab;
     public Transform EndPoint;
-    //public int numOfPassengers;
-    //private List<GameObject> passengers;
+    public Transform StationCenter;
+    public int numOfPassengers;
+
+    public List<GameObject> passengers;
 
     void Start()
     {
-        /*
+        passengers = new List<GameObject>();
+    }
+
+    public void SpawnPassengers()
+    {
         // spawn numOfPassengers in the station.
         for (int i = 0; i < numOfPassengers; i++)
         {
-            Instantiate();
-            passengers.add(passenger);
-        }*/
+            Vector3 startingPoint = StationCenter.transform.position + new Vector3(Random.Range(-20, -20), 0, Random.Range(-10, 10));
+            GameObject passenger = Instantiate(passengerPrefab, startingPoint, Quaternion.identity);
+            passenger.transform.SetParent(this.transform);
+            passengers.Add(passenger);
+        }
     }
 
-    void TrainArrived()
+    public void TrainArrived(Train train)
     {
-        //train.passengers.WalkTo(this);
-        //train.passengers.remove(trainpassenger);
-        //this.passengers.add(trainpassenger);
-        /*
+        for (int i = 0; i < passengers.Count; i++)
+        {
+            GameObject passenger = passengers[i];
+            Passanger passengerScript = passenger.GetComponent<Passanger>();
+            if (passengerScript.atStation) 
+            {
+                passengerScript.atStation = false;
+                Transform point = train.GetStandingPoint();
+                //passengerScript.Walk(point.transform);
+                passengerScript.transform.position = point.position;
+                train.Passengers.Add(passenger);
+                passenger.transform.SetParent(train.transform);
+                passengers.Remove(passenger);
+            }
+            else
+                passengerScript.atStation = true;
+        }
+
+        /* old code
         foreach (GameObject passenger in passengers)
         {
-            //passenger.WalkTo(train);
-            //passengers.remove(passenger);
-            //train.passengers.add(passenger);
+            Passanger passengerScript = passenger.GetComponent<Passanger>();
+
+            // check if the passenger need to aboard the train
+
+            //StandingPoint point = train.GetStandingPoint();
+            //passengerScript.Walk(point.transform);
+            passengers.Remove(passenger);
         }*/
+
     }
 }

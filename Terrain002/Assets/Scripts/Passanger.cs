@@ -8,6 +8,8 @@ public class Passanger : MonoBehaviour
     public Transform EndPoint1;
     public Transform EndPoint2;
 
+    public bool atStation = true;
+
     int status = 2;
     public static bool isWalking = false;
     bool HasBeen = true;
@@ -22,6 +24,7 @@ public class Passanger : MonoBehaviour
     }
     void Update()
     {
+        /*
         if (!onTrain)
         {
 
@@ -108,9 +111,9 @@ public class Passanger : MonoBehaviour
             default:
                 animator.SetBool("Walk", false);
                 break;
-        }
+        }*/
     }
-    void Walk(Transform point)
+    public void Walk(Transform point)
     {
         animator.SetBool("Walk", true);
         Vector3 dir = point.position - transform.position;

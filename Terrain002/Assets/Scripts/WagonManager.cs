@@ -4,25 +4,35 @@ using UnityEngine;
 
 public class WagonManager : MonoBehaviour
 {
-    public static List<Transform> Points;
-    public static List<Transform> StandingPoints;
-
-    public Transform Point1;
-    public Transform Point2;
-    public Transform StandingPoint;
+    public List<Transform> StandingPoints = new List<Transform>();
+    private int capacity;
+    private int currentCapacity = 0;
 
     void Start()
     {
-        Points = new List<Transform>();
-        StandingPoints = new List<Transform>();
-        if (Point1 != null && Point2 != null)
-        {
-            Points.Add(Point1);
-            Points.Add(Point2);
-        }
-        if (StandingPoint != null)
-        {
-            StandingPoints.Add(StandingPoint);
-        }
+        capacity = (int)Random.Range(2, 4);
+    }
+
+    public void FillWagon()
+    {
+        currentCapacity++;
+    }
+
+    public void UnloadWagon()
+    {
+        currentCapacity = 0;
+    }
+
+    public bool checkAvailability()
+    {
+        if (currentCapacity < capacity)
+            return true;
+        return false;
+    }
+
+    // returns a point to stand at
+    public Transform GetStandingPoint()
+    {
+        return StandingPoints[(int)Random.Range(0, 1)];
     }
 }

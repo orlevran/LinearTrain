@@ -35,6 +35,7 @@ public class Train : MonoBehaviour
             TrainLength += car.GetComponent<Collider>().bounds.size.x; // remember to add a collider to new cars
             car.GetComponent<BoxCollider>().isTrigger = false;
         }
+        Passengers = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -95,14 +96,15 @@ public class Train : MonoBehaviour
         {
             AtStation = true;
             CurrentSpeed = 0;
-            //Stations[StationIndex].TrainArrived();
+            UnloadPassengers();
+            Stations[StationIndex].TrainArrived(this);
             //PassangerController.EnableOrDisableAgent(true);
             //Passanger.isWalking = true;
             //AnimationActivator.OutSideObjectActivator = true;
             StartCoroutine(WaitForPassengers());
             IEnumerator WaitForPassengers()
             {
-                yield return new WaitForSeconds(10);
+                yield return new WaitForSeconds(2);
                 NextStation();
                 status = 0;
                 AtStation = false;
@@ -133,6 +135,43 @@ public class Train : MonoBehaviour
         Engine.transform.position += engineOffset;
         //Debug.Log(Engine.transform.position);
         Engine.transform.LookAt(Stations[StationIndex].EndPoint);
+    }
+    
+    void UnloadPassengers()
+    {
+        for (int i = 1; i < Cars.Count; i++)
+        {
+            WagonManager wagon = Cars[i].GetComponent<WagonManager>();
+            wagon.UnloadWagon();
+        }
+        foreach (GameObject passenger in Passengers)
+        {
+            Passanger passengerScript = passenger.GetComponent<Passanger>();
+            //passengerScript.Walk(Stations[StationIndex].EndPoint.transform);
+            Vector3 destination = Stations[StationIndex].StationCenter.transform.position + new Vector3(Random.Range(-20,-20), 0, Random.Range(-10,10));
+            passengerScript.transform.position = destination;
+            Stations[StationIndex].passengers.Add(passenger);
+            passenger.transform.SetParent(Stations[StationIndex].transform);
+        }
+        Passengers.Clear();
+    }
+
+    // search for an empty standing point in the wagon. return the station point if the train is full
+    public Transform GetStandingPoint()
+    {
+        Debug.Log("check available wagon");
+        for (int i = 1; i < Cars.Count; i++)
+        {
+            Debug.Log("wagon " + i);
+            WagonManager wagon = Cars[i].GetComponent<WagonManager>();
+            if (wagon.checkAvailability())
+            {
+                Transform standingPoint = wagon.GetStandingPoint();
+                wagon.FillWagon();
+                return standingPoint;
+            }
+        }
+        return Stations[StationIndex].transform;
     }
 
 }
