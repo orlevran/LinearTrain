@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Station
+  - NavFloor
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - 
   - Floor
   - Passanger
-  - 
-  - 
-  - 
+  - PlatformFloor
+  - TrainFloor
+  - NavLink
   - 
   - 
   - 
