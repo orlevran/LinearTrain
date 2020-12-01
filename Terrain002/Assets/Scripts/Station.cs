@@ -33,16 +33,13 @@ public class Station : MonoBehaviour
         for (int i = 0; i < passengers.Count; i++)
         {
             GameObject passenger = passengers[i];
-            Passanger passengerScript = passenger.GetComponent<Passanger>();
-            if (passengerScript.atStation) 
+            PassengerNavmesh passengerScript = passenger.GetComponent<PassengerNavmesh>();
+            if (passengerScript.atStation)
             {
-                passengerScript.atStation = false;
-                Transform point = train.GetStandingPoint();
-                //passengerScript.Walk(point.transform);
-                passengerScript.transform.position = point.position;
-                train.Passengers.Add(passenger);
-                passenger.transform.SetParent(train.transform);
-                passengers.Remove(passenger);
+                train.BuildEntrancePath(passengerScript);
+                //train.Passengers.Add(passenger);
+                //passenger.transform.SetParent(passengerScript.wagon.StandingPoints[0]);
+                //passengers.Remove(passenger);
             }
             else
                 passengerScript.atStation = true;

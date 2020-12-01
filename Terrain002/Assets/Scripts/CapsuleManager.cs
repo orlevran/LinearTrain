@@ -14,9 +14,7 @@ public class CapsuleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(trainStopPos.transform.position, train.transform.position) < 1)
-        {
-            agent.SetDestination(target.transform.position);
-        }
+         Debug.Log("asdf");
+         agent.SetDestination(target.transform.position);
     }
 }

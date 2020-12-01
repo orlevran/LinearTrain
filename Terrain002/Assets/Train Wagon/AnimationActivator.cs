@@ -37,14 +37,14 @@ public class AnimationActivator : MonoBehaviour
     }
 
     // You call this function when you want to open the doors.
-    private void ForceOpenDoors()
+    public void ForceOpenDoors()
     {
         Doors1Animator.SetBool("Open", true);
         Doors2Animator.SetBool("Open", true);
     }
 
     // You call this function when you want to close the doors.
-    void ForceCloseDoors()
+    public void ForceCloseDoors()
     {
         Doors1Animator.SetBool("Open", false);
         Doors1Animator.SetBool("Idle", true);

@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour
         try // when not running from main menu, generate 5 passengers (debug tool)
         {
             totalPassengers = MainMenu.instance.numOfPassengers;
-        }catch(Exception e)
+        }catch(Exception)
         {
-            totalPassengers = 7;
+            totalPassengers = 6;
         }
 
         int passengersPerStation = totalPassengers / Stations.Count;
