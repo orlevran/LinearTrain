@@ -157,7 +157,6 @@ public class Train : MonoBehaviour
             //navmesh.path.Add(navmesh.wagon.Entrance);
             passengerAgent.path.Add(Stations[StationIndex].StationCenter.transform);
             passengerAgent.wagon = null;
-            passengerAgent.atStation = true;
         }
         //Passengers.Clear();
     }
@@ -165,25 +164,24 @@ public class Train : MonoBehaviour
     // and then try to aboard again.
     void ManagePassengers() 
     {
+        List<GameObject> temp = new List<GameObject>();
         // from train to station
         foreach (GameObject passenger in Passengers)
         {
-            Stations[StationIndex].passengers.Add(passenger);
+            temp.Add(passenger);
             passenger.transform.SetParent(Stations[StationIndex].transform);
         }
+        Passengers.Clear();
         // from station to train
-        foreach (GameObject passenger in Stations[StationIndex].passengers)
+        for (int i = 0; i < Stations[StationIndex].passengers.Count; i++)
         {
+            GameObject passenger = Stations[StationIndex].passengers[i];
             PassengerNavmesh passengerScript = passenger.GetComponent<PassengerNavmesh>();
-            if (passengerScript.atStation)
-            {
-                Passengers.Add(passenger);
-                passenger.transform.SetParent(passengerScript.wagon.StandingPoints[0]);
-                Stations[StationIndex].passengers.Remove(passenger);
-            }
-            else
-                passengerScript.atStation = true;
+            Passengers.Add(passenger);
+            passenger.transform.SetParent(passengerScript.wagon.transform);
         }
+
+        Stations[StationIndex].passengers = temp;
     }
     
     //build a path to a passengers that want to enter the train
@@ -197,7 +195,6 @@ public class Train : MonoBehaviour
         Transform dest = wagon.GetStandingPoint();
         list.Add(dest);
         passenger.path = list;
-        passenger.atStation = false;
         passenger.wagon = wagon;
         passenger.StandingPoint = dest;
     }

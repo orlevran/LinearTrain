@@ -9,12 +9,7 @@ public class Station : MonoBehaviour
     public Transform StationCenter;
     public int numOfPassengers;
 
-    public List<GameObject> passengers;
-
-    void Start()
-    {
-        passengers = new List<GameObject>();
-    }
+    public List<GameObject> passengers = new List<GameObject>();
 
     public void SpawnPassengers()
     {
@@ -34,28 +29,7 @@ public class Station : MonoBehaviour
         {
             GameObject passenger = passengers[i];
             PassengerNavmesh passengerScript = passenger.GetComponent<PassengerNavmesh>();
-            if (passengerScript.atStation)
-            {
-                train.BuildEntrancePath(passengerScript);
-                //train.Passengers.Add(passenger);
-                //passenger.transform.SetParent(passengerScript.wagon.StandingPoints[0]);
-                //passengers.Remove(passenger);
-            }
-            else
-                passengerScript.atStation = true;
+            train.BuildEntrancePath(passengerScript);
         }
-
-        /* old code
-        foreach (GameObject passenger in passengers)
-        {
-            Passanger passengerScript = passenger.GetComponent<Passanger>();
-
-            // check if the passenger need to aboard the train
-
-            //StandingPoint point = train.GetStandingPoint();
-            //passengerScript.Walk(point.transform);
-            passengers.Remove(passenger);
-        }*/
-
     }
 }

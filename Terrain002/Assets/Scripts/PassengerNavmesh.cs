@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class PassengerNavmesh : MonoBehaviour
 {
-    public bool atStation = true;
     public NavMeshAgent agent;
     public List<Transform> path = new List<Transform>();
     public int pathIndex = 0;
