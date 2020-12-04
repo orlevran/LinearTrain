@@ -1541,11 +1541,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffa68cd3452aa1448b2fa7953c74ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atStation: 1
   agent: {fileID: 0}
   path: []
   pathIndex: 0
   wagon: {fileID: 0}
+  StandingPoint: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &1967655960413887540
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Station : MonoBehaviour
 {
     public GameObject passengerPrefab;
     public Transform EndPoint;
+    public List<Transform> WaitingPoints;
     public Transform StationCenter;
     public int numOfPassengers;
 
@@ -16,7 +17,7 @@ public class Station : MonoBehaviour
         // spawn numOfPassengers in the station.
         for (int i = 0; i < numOfPassengers; i++)
         {
-            Vector3 startingPoint = StationCenter.transform.position + new Vector3(Random.Range(-20, -20), 0, Random.Range(-10, 10));
+            Vector3 startingPoint = WaitingPoints[Random.Range(0, WaitingPoints.Count - 1)].position;
             GameObject passenger = Instantiate(passengerPrefab, startingPoint, Quaternion.identity);
             passenger.transform.SetParent(this.transform);
             passengers.Add(passenger);

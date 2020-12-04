@@ -10,13 +10,14 @@ public class PassengerNavmesh : MonoBehaviour
     public int pathIndex = 0;
 
     public WagonManager wagon;
-
     public Transform StandingPoint;
 
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -24,6 +25,7 @@ public class PassengerNavmesh : MonoBehaviour
         // manage the agent and his path follow
         if (path.Count > 0)
         {
+            animator.SetTrigger("Walk");
             if (!agent.enabled)
                 agent.enabled = true;
             agent.SetDestination(path[pathIndex].position);
@@ -33,6 +35,7 @@ public class PassengerNavmesh : MonoBehaviour
                     pathIndex++;
                 else // path ended - reset the path
                 {
+                    animator.ResetTrigger("Walk");
                     path.Clear();
                     pathIndex = 0;
                     agent.enabled = false;

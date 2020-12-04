@@ -17846,7 +17846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2fc16541a8e1944b883f6d658654d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  train: {fileID: 1452559052}
+  train: {fileID: 289402302}
 --- !u!20 &1189234602
 Camera:
   m_ObjectHideFlags: 0
@@ -23579,6 +23579,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passengerPrefab: {fileID: 1967648341584507280, guid: 966308638ba6f2f43a5d7204fb3e46f3, type: 3}
   EndPoint: {fileID: 2131288843}
+  WaitingPoints:
+  - {fileID: 1073701300}
+  - {fileID: 194581463}
+  - {fileID: 2115058265}
+  - {fileID: 1915505978}
+  - {fileID: 1029091647}
+  - {fileID: 1184680152}
+  - {fileID: 1246251033}
+  - {fileID: 26841243}
+  - {fileID: 1375881392}
+  - {fileID: 855565380}
   StationCenter: {fileID: 937985323}
   numOfPassengers: 0
   passengers: []
@@ -33489,6 +33500,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passengerPrefab: {fileID: 1967648341584507280, guid: 966308638ba6f2f43a5d7204fb3e46f3, type: 3}
   EndPoint: {fileID: 471155503090625268}
+  WaitingPoints:
+  - {fileID: 471155504403649091}
+  - {fileID: 471155504614311919}
+  - {fileID: 471155504343014213}
+  - {fileID: 471155504342903544}
+  - {fileID: 471155503642151194}
+  - {fileID: 471155503186445961}
+  - {fileID: 471155503932729861}
+  - {fileID: 471155503049084612}
+  - {fileID: 471155503049084612}
+  - {fileID: 471155502953373033}
   StationCenter: {fileID: 708887046}
   numOfPassengers: 0
   passengers: []

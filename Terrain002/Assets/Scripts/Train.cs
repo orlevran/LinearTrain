@@ -155,7 +155,8 @@ public class Train : MonoBehaviour
             PassengerNavmesh passengerAgent = passenger.GetComponent<PassengerNavmesh>();
             //navmesh.path.Add(navmesh.wagon.Center);
             //navmesh.path.Add(navmesh.wagon.Entrance);
-            passengerAgent.path.Add(Stations[StationIndex].StationCenter.transform);
+            Transform dest = Stations[StationIndex].WaitingPoints[Random.Range(0, Stations[StationIndex].WaitingPoints.Count-1)];
+            passengerAgent.path.Add(dest);
             passengerAgent.wagon = null;
         }
         //Passengers.Clear();
